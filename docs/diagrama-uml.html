@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Classes UML</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #fff; display: flex; justify-content: center; padding: 8px; }
+    svg { width: 100%; max-width: 1060px; height: auto; display: block; }
+    .nome { font-family: 'Segoe UI', sans-serif; font-size: 15px; font-weight: 700; text-anchor: middle; fill: #2d3142; }
+    .membro { font-family: Consolas, monospace; font-size: 12px; fill: #2d3142; }
+    .rotulo { font-family: Consolas, monospace; font-size: 11px; fill: #5c677d; }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 1060 456" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="strategy-title strategy-desc">
+    <title id="strategy-title">Classes do padrão Strategy para cálculo de frete</title>
+    <desc id="strategy-desc">Entrega mantém uma estratégia CalculoFrete, realizada por FreteEconomico, FreteExpresso e RetiradaLocal, e permite substituí-la durante a execução.</desc>
+    <defs>
+      <marker id="uml-triangle" markerWidth="16" markerHeight="14" refX="15" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+        <polygon points="1 1, 15 7, 1 13" fill="#fff" stroke="#2d3142" stroke-width="1.4"/>
+      </marker>
+      <marker id="uml-open" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse">
+        <polyline points="2 1, 11 6, 2 11" fill="none" stroke="#2d3142" stroke-width="1.4"/>
+      </marker>
+    </defs>
+    <rect width="1060" height="456" fill="#fff"/>
+
+    <!-- Associação: estratégias podem ser compartilhadas entre entregas. -->
+    <path d="M 524 100 H 620" fill="none" stroke="#2d3142" stroke-width="1.4" marker-end="url(#uml-open)"/>
+    <text x="536" y="84" class="rotulo">0..*</text>
+    <text x="600" y="84" class="rotulo">1</text>
+
+    <!-- Realizações independentes, com triângulos apontando para a interface. -->
+    <path d="M 184 340 V 264 Q 184 256 192 256 H 652 Q 660 256 660 248 V 156" fill="none" stroke="#2d3142" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-triangle)"/>
+    <path d="M 530 340 V 296 Q 530 288 538 288 H 812 Q 820 288 820 280 V 156" fill="none" stroke="#2d3142" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-triangle)"/>
+    <path d="M 960 340 V 156" fill="none" stroke="#2d3142" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-triangle)"/>
+
+    <g id="class-entrega">
+      <rect x="24" y="24" width="500" height="196" rx="6" fill="#fff" stroke="#2d3142" stroke-width="1.4"/>
+      <path d="M 30 24 H 518 Q 524 24 524 30 V 64 H 24 V 30 Q 24 24 30 24" fill="#f1f3f5"/>
+      <line x1="24" y1="64" x2="524" y2="64" stroke="#2d3142" stroke-width="1.2"/>
+      <text x="274" y="50" class="nome">Entrega</text>
+      <text x="40" y="88" class="membro">- calculoFrete: CalculoFrete</text>
+      <line x1="24" y1="104" x2="524" y2="104" stroke="#2d3142" stroke-width="1.2"/>
+      <text x="40" y="132" class="membro">+ Entrega(calculoFrete: CalculoFrete)</text>
+      <text x="40" y="164" class="membro">+ setCalculoFrete(calculoFrete: CalculoFrete): void</text>
+      <text x="40" y="196" class="membro">+ calcularFrete(pesoKg: double): double</text>
+    </g>
+
+    <g id="interface-calculo-frete">
+      <rect x="620" y="48" width="416" height="108" rx="6" fill="#fdf8f5" stroke="#d9532f" stroke-width="1.6"/>
+      <path d="M 626 48 H 1030 Q 1036 48 1036 54 V 104 H 620 V 54 Q 620 48 626 48" fill="#faeae4"/>
+      <text x="828" y="70" class="rotulo" text-anchor="middle" style="fill:#d9532f">«interface»</text>
+      <text x="828" y="92" class="nome">CalculoFrete</text>
+      <line x1="620" y1="104" x2="1036" y2="104" stroke="#d9532f" stroke-width="1.2"/>
+      <text x="636" y="136" class="membro">+ calcular(pesoKg: double): double</text>
+    </g>
+
+    <g id="class-frete-economico">
+      <rect x="24" y="340" width="320" height="92" rx="6" fill="#fff" stroke="#2d3142" stroke-width="1.4"/>
+      <path d="M 30 340 H 338 Q 344 340 344 346 V 380 H 24 V 346 Q 24 340 30 340" fill="#f1f3f5"/>
+      <text x="184" y="366" class="nome">FreteEconomico</text>
+      <line x1="24" y1="380" x2="344" y2="380" stroke="#2d3142" stroke-width="1.2"/>
+      <text x="40" y="412" class="membro">+ calcular(pesoKg: double): double</text>
+    </g>
+    <g id="class-frete-expresso">
+      <rect x="370" y="340" width="320" height="92" rx="6" fill="#fff" stroke="#2d3142" stroke-width="1.4"/>
+      <path d="M 376 340 H 684 Q 690 340 690 346 V 380 H 370 V 346 Q 370 340 376 340" fill="#f1f3f5"/>
+      <text x="530" y="366" class="nome">FreteExpresso</text>
+      <line x1="370" y1="380" x2="690" y2="380" stroke="#2d3142" stroke-width="1.2"/>
+      <text x="386" y="412" class="membro">+ calcular(pesoKg: double): double</text>
+    </g>
+    <g id="class-retirada-local">
+      <rect x="716" y="340" width="320" height="92" rx="6" fill="#fff" stroke="#2d3142" stroke-width="1.4"/>
+      <path d="M 722 340 H 1030 Q 1036 340 1036 346 V 380 H 716 V 346 Q 716 340 722 340" fill="#f1f3f5"/>
+      <text x="876" y="366" class="nome">RetiradaLocal</text>
+      <line x1="716" y1="380" x2="1036" y2="380" stroke="#2d3142" stroke-width="1.2"/>
+      <text x="732" y="412" class="membro">+ calcular(pesoKg: double): double</text>
+    </g>
+  </svg>
+</body>
+</html>
